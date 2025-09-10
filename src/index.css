@@ -7,10 +7,11 @@
   --color-accent: #5aff35;
   --color-background: #fff0eb;
   --color-text: #1c0a00;
+  --font-sans: 'Lato', sans-serif;
 }
 
 @layer base {
   body {
-    font-family: "Lato", sans-serif;
+    @apply bg-background text-text min-h-dvh font-sans;
   }
 }

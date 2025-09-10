@@ -1,9 +1,15 @@
+import JobList from "./components/job-list";
+import { JobProvider } from "./context/JobContext";
+
 function App() {
   return (
     <>
-      <div className="container mx-auto">
-        <h1 className="text-center text-primary">Oktopeak - zadatak</h1>
-      </div>
+      <JobProvider>
+        <div className="container mx-auto p-4">
+          <h2 className="font-bold text-xl mb-5">Lista prijava</h2>
+          <JobList />
+        </div>
+      </JobProvider>
     </>
   );
 }
