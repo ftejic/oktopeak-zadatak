@@ -35,7 +35,7 @@ export default function JobForm() {
     setTempData(data);
     setLoading(true);
     try {
-      const message = await generateThankYou(data.company, data.position);
+      const message = await generateThankYou(data.company, data.position, data.status);
       setThankYouMessage(message);
     } catch (error) {
       setThankYouMessage("Failed to generate message. Please try again.");
@@ -62,31 +62,25 @@ export default function JobForm() {
     <div>
       {!thankYouMessage ? (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
-          <div>
+          <div className="space-y-1">
             <label className="text-sm font-semibold">Company</label>
-            <input
-              {...register("company")}
-              className="mt-1 block w-full h-9 rounded-md border border-text bg-transparent px-3 py-1 shadow-xs  focus-visible:border-primary focus-visible:ring-primary/50 focus-visible:ring-[3px] outline-none transition-all"
-            />
+            <input {...register("company")} />
             {errors.company && (
               <p className="text-red-500 text-sm">{errors.company.message}</p>
             )}
           </div>
-          <div>
+          <div className="space-y-1">
             <label className="text-sm font-semibold">Position</label>
-            <input
-              {...register("position")}
-              className="mt-1 block w-full h-9 rounded-md border border-text bg-transparent px-3 py-1 shadow-xs  focus-visible:border-primary focus-visible:ring-primary/50 focus-visible:ring-[3px] outline-none transition-all"
-            />
+            <input {...register("position")} />
             {errors.position && (
               <p className="text-red-500 text-sm">{errors.position.message}</p>
             )}
           </div>
-          <div>
+          <div className="space-y-1">
             <label className="text-sm font-semibold">Status</label>
             <select
               {...register("status")}
-              className="mt-1 w-full h-9 rounded-md border border-text px-3 py-1 shadow-xs outline-none bg-background"
+              className="w-full h-9 rounded-md border px-3 py-1 shadow-xs outline-none bg-background"
             >
               <option value="Applied">Applied</option>
               <option value="Interview">Interview</option>
@@ -101,7 +95,7 @@ export default function JobForm() {
             <button
               type="submit"
               disabled={loading}
-              className="bg-primary text-background mt-2 px-4 py-2 rounded hover:bg-primary/90 transition-all cursor-pointer w-full sm:w-fit"
+              className="button-primary w-full sm:w-fit mt-2"
             >
               {loading ? "Please wait..." : "Add Application"}
             </button>
@@ -113,19 +107,18 @@ export default function JobForm() {
           <textarea
             value={thankYouMessage}
             onChange={(e) => setThankYouMessage(e.target.value)}
-            className="w-full border rounded p-2"
             rows={4}
           />
           <div className="space-y-2 sm:space-y-0 sm:space-x-3 sm:flex sm:justify-end">
             <button
               onClick={handleCancel}
-              className="bg-background text-text px-4 py-2 rounded hover:bg-text/5 border  border-text/50 transition-all cursor-pointer w-full sm:w-fit"
+              className="button-outline w-full sm:w-fit"
             >
               Cancel
             </button>
             <button
               onClick={handleConfirm}
-              className="bg-primary text-background px-4 py-2 rounded hover:bg-primary/90 transition-all cursor-pointer w-full sm:w-fit"
+              className="button-primary w-full sm:w-fit"
             >
               Save Application
             </button>

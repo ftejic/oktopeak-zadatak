@@ -6,12 +6,12 @@ function App() {
   return (
     <>
       <JobProvider>
-        <div className="container mx-auto p-4">
-          <div className="mb-10">
+        <div className="container mx-auto px-5 py-10">
+          <div>
             <h2 className="font-bold text-xl mb-5">Add New Application</h2>
             <JobForm />
           </div>
-          <div>
+          <div className="mt-20">
             <h2 className="font-bold text-xl mb-5">My Applications</h2>
             <JobList />
           </div>

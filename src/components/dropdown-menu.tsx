@@ -37,12 +37,12 @@ export default function DropdownMenu({ job }: { job: Job }) {
 
   return (
     <div ref={ref} className="relative">
-      <button
+      <div
         onClick={toggleDropdown}
-        className="cursor-pointer text-text/50 hover:text-text/80"
+        className="cursor-pointer text-muted-foreground hover:text-foreground"
       >
         <EllipsisVertical />
-      </button>
+      </div>
 
       {dropdownOpen && (
         <div
@@ -57,10 +57,11 @@ export default function DropdownMenu({ job }: { job: Job }) {
             </label>
             <select
               value={job.status}
-              onChange={(e) =>
-                updateJobStatus(job.id, e.target.value as JobStatus)
-              }
-              className="w-full px-2 py-1 border rounded-sm text-sm bg-background"
+              onChange={(e) => {
+                updateJobStatus(job.id, e.target.value as JobStatus);
+                setDropdownOpen(false);
+              }}
+              className="h-9 w-full px-2 py-1 border rounded-sm text-sm bg-background"
             >
               {statuses.map((status) => (
                 <option key={status} value={status} className="bg-background">
@@ -75,7 +76,7 @@ export default function DropdownMenu({ job }: { job: Job }) {
                 deleteJob(job.id);
                 setDropdownOpen(false);
               }}
-              className="w-full text-left text-sm text-red-500 px-2 py-1 rounded hover:bg-text/5 cursor-pointer"
+              className="button-outline w-full text-destructive"
             >
               Delete
             </button>

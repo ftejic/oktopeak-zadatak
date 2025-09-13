@@ -1,11 +1,16 @@
 import OpenAI from "openai";
+import type { JobStatus } from "../context/JobContext";
 
 const client = new OpenAI({
   apiKey: import.meta.env.VITE_OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
 });
 
-export const generateThankYou = async (company: string, position: string) => {
+export const generateThankYou = async (
+  company: string,
+  position: string,
+  status: JobStatus
+) => {
   try {
     const response = await client.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -17,7 +22,7 @@ export const generateThankYou = async (company: string, position: string) => {
         },
         {
           role: "user",
-          content: `Create a thank-you message for someone who applied to the position of ${position} at ${company}. Keep it under 250 characters, polite and enthusiastic.`,
+          content: `Create a thank-you message for someone who applied to the position of ${position} at ${company}. The application status is ${status}. Keep it under 220 characters, polite and enthusiastic.`,
         },
       ],
       temperature: 0.9,

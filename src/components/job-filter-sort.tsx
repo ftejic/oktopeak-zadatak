@@ -9,7 +9,7 @@ export default function JobFilterSort({
 }) {
   const { jobs } = useJobs();
   const [statusFilter, setStatusFilter] = useState<string>("All");
-  const [sortAsc, setSortAsc] = useState(true);
+  const [sortAsc, setSortAsc] = useState(false);
 
   useEffect(() => {
     let filtered =
@@ -32,10 +32,10 @@ export default function JobFilterSort({
   }, [statusFilter, sortAsc, jobs, setFilteredJobs]);
 
   return (
-    <div className="flex items-center gap-3 mb-5 justify-end">
+    <div className="flex items-center space-x-5 mb-5 justify-end">
       <select
         value={statusFilter}
-        className="px-2 py-1 border rounded-sm text-sm bg-background"
+        className="h-9 px-3 py-1 border rounded-sm text-sm bg-background"
         onChange={(e) => setStatusFilter(e.target.value)}
       >
         <option value="All">All</option>
