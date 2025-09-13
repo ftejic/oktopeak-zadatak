@@ -8,11 +8,12 @@ export interface Job {
   position: string;
   status: JobStatus;
   message: string;
+  createdAt: string;
 }
 
 interface JobsContextType {
   jobs: Job[];
-  addJob: (job: Omit<Job, "id">) => void;
+  addJob: (job: Omit<Job, "id" | "createdAt">) => void;
   updateJobStatus: (id: string, status: Job["status"]) => void;
   deleteJob: (id: string) => void;
 }
@@ -42,6 +43,7 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
         position: "Junior Frontend Developer",
         status: "Interview",
         message: "Looking forward to the interview!",
+        createdAt: new Date("2025-09-05T10:30:00Z").toISOString(),
       },
       {
         id: crypto.randomUUID(),
@@ -49,6 +51,7 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
         position: "Backend Developer",
         status: "Applied",
         message: "Excited to apply for this position.",
+        createdAt: new Date("2025-09-01T15:45:00Z").toISOString(),
       },
     ];
   });
@@ -57,8 +60,11 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
   }, [jobs]);
 
-  const addJob = (job: Omit<Job, "id">) => {
-    setJobs((prevJobs) => [...prevJobs, { id: crypto.randomUUID(), ...job }]);
+  const addJob = (job: Omit<Job, "id" | "createdAt">) => {
+    setJobs((prevJobs) => [
+      { id: crypto.randomUUID(), createdAt: new Date().toISOString(), ...job },
+      ...prevJobs,
+    ]);
   };
 
   const updateJobStatus = (id: string, status: JobStatus) => {
