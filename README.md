@@ -1,69 +1,42 @@
-# React + TypeScript + Vite
+# Oktopeak zadatak
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Jednostavna React aplikacija za pracenje poslova, generisanje zahvalnica i upravljanje statusom aplikacija.
 
-Currently, two official plugins are available:
+## Funkcionalnosti
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Dodavanje novih poslova sa firmom, pozicijom i statusom.
+- Automatsko generisanje thank-you poruka koristeci OpenAI Chat Completions API.
+- Filtriranje poslova po statusu (Applied, Interview, Offer, Rejected).
+- Sortiranje poslova po datumu kreiranja (rastuce/opadajuce).
+- Izmena statusa i brisanje poslova.
+- Podaci se cuvaju u `localStorage`
 
-## Expanding the ESLint configuration
+> Napomena: Projekat koristi **Chat Completions API** umesto novijeg Responses API, jer direktni pozivi sa browser-a na novi Responses API stvaraju probleme sa autentifikacijom.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tehnologije
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- OpenAI Chat Completions API
+- `localStorage` za cuvanje podataka
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Pokretanje aplikacije
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Klonirati repozitorijum**  
+   ```bash
+   git clone https://github.com/ftejic/oktopeak-zadatak.git  
+   cd oktopeak-zadatak
+   ```
+2. **Instalirati zavisnosti**  
+    ```bash
+    npm install
+    ```
+3. **Postaviti OpenAI API key**  
+    Kreirati .env.local i u njemu napisati VITE_OPENAI_API_KEY=openai_api_kljuc
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+4. **Pokrenuti aplikaciju**  
+    ```bash
+    npm run dev
+    ```
+5. **Otvoriti http://localhost:5173 u browseru**  
