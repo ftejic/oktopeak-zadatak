@@ -6,6 +6,7 @@ const statuses: JobStatus[] = ["Applied", "Interview", "Offer", "Rejected"];
 
 export default function DropdownMenu({ job }: { job: Job }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [openUpwards, setOpenUpwards] = useState(false);
   const { updateJobStatus, deleteJob } = useJobs();
 
   const ref = useRef<HTMLDivElement>(null);
@@ -23,17 +24,33 @@ export default function DropdownMenu({ job }: { job: Job }) {
     };
   }, []);
 
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const menuHeight = 144;
+      setOpenUpwards(spaceBelow < menuHeight);
+    }
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div ref={ref} className="relative">
       <button
-        onClick={() => setDropdownOpen(!dropdownOpen)}
+        onClick={toggleDropdown}
         className="cursor-pointer text-text/50 hover:text-text/80"
       >
         <EllipsisVertical />
       </button>
 
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-36 bg-background border rounded-md shadow-lg z-10">
+        <div
+          className={`absolute right-0 mt-2 w-36 bg-background border rounded-md shadow-lg z-10 ${
+            openUpwards ? "bottom-full mb-2" : ""
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="p-2">
             <label className="block text-sm font-semibold mb-1">
               Change Status:
@@ -41,7 +58,7 @@ export default function DropdownMenu({ job }: { job: Job }) {
             <select
               value={job.status}
               onChange={(e) =>
-                updateJobStatus(job.id, e.target.value as Job["status"])
+                updateJobStatus(job.id, e.target.value as JobStatus)
               }
               className="w-full px-2 py-1 border rounded-sm text-sm bg-background"
             >

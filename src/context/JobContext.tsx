@@ -7,6 +7,7 @@ export interface Job {
   company: string;
   position: string;
   status: JobStatus;
+  message: string;
 }
 
 interface JobsContextType {
@@ -40,12 +41,14 @@ export const JobProvider = ({ children }: { children: React.ReactNode }) => {
         company: "Oktopeak",
         position: "Junior Frontend Developer",
         status: "Interview",
+        message: "Looking forward to the interview!",
       },
       {
         id: crypto.randomUUID(),
         company: "Facebook",
         position: "Backend Developer",
         status: "Applied",
+        message: "Excited to apply for this position.",
       },
     ];
   });

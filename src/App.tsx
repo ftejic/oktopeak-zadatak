@@ -1,3 +1,4 @@
+import JobForm from "./components/job-form";
 import JobList from "./components/job-list";
 import { JobProvider } from "./context/JobContext";
 
@@ -6,8 +7,14 @@ function App() {
     <>
       <JobProvider>
         <div className="container mx-auto p-4">
-          <h2 className="font-bold text-xl mb-5">Lista prijava</h2>
-          <JobList />
+          <div className="mb-10">
+            <h2 className="font-bold text-xl mb-5">Add New Application</h2>
+            <JobForm />
+          </div>
+          <div>
+            <h2 className="font-bold text-xl mb-5">My Applications</h2>
+            <JobList />
+          </div>
         </div>
       </JobProvider>
     </>
